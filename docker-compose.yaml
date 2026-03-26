@@ -1,0 +1,69 @@
+version: "3.9"
+
+services:
+
+  # ── Cache ───────────────────────────────
+  redis:
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - redis_data:/data
+
+  # ── XenSQL (NL-to-SQL Engine) ──────────
+  xensql:
+    image: jyothika2832/ai_security_v2-1-xensql:latest
+    ports:
+      - "8001:8900"
+    environment:
+      XENSQL_REDIS_URL: redis://redis:6379/0
+      XENSQL_NEO4J_URI: ${NEO4J_URI}
+      XENSQL_NEO4J_USER: ${NEO4J_USER}
+      XENSQL_NEO4J_PASSWORD: ${NEO4J_PASSWORD}
+      XENSQL_NEO4J_DATABASE: ${NEO4J_DATABASE}
+
+      XENSQL_LLM_PRIMARY_PROVIDER: ${XENSQL_LLM_PRIMARY_PROVIDER}
+      XENSQL_LLM_PRIMARY_BASE_URL: ${XENSQL_LLM_PRIMARY_BASE_URL}
+      XENSQL_LLM_PRIMARY_MODEL: ${XENSQL_LLM_PRIMARY_MODEL}
+      XENSQL_LLM_PRIMARY_API_KEY: ${XENSQL_LLM_PRIMARY_API_KEY}
+
+    depends_on:
+      - redis
+    restart: always
+
+  # ── QueryVault (Security Layer) ─────────
+  queryvault:
+    image: jyothika2832/ai_security_v2-1-queryvault:latest
+    ports:
+      - "8002:8950"
+    environment:
+      QV_XENSQL_BASE_URL: http://xensql:8900
+      QV_REDIS_URL: redis://redis:6379/1
+
+      QV_NEO4J_URI: ${NEO4J_URI}
+      QV_NEO4J_USER: ${NEO4J_USER}
+      QV_NEO4J_PASSWORD: ${NEO4J_PASSWORD}
+      QV_NEO4J_DATABASE: ${NEO4J_DATABASE}
+
+      QV_POSTGRES_DSN: ${QV_POSTGRES_DSN}
+
+      QV_HMAC_SECRET: ${QV_HMAC_SECRET}
+      QV_JWT_AUDIENCE: ${QV_JWT_AUDIENCE}
+      QV_JWT_ISSUER: ${QV_JWT_ISSUER}
+
+    depends_on:
+      - redis
+      - xensql
+    restart: always
+
+  # ── Dashboard (Frontend - React) ────────
+  dashboard:
+    image: jyothika2832/ai_security_v2-1-dashboard:latest
+    ports:
+      - "3001:3001"   # 🔥 IMPORTANT FIX
+    depends_on:
+      - xensql
+      - queryvault
+    restart: always
+
+volumes:
+  redis_data:
