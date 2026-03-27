@@ -35,8 +35,6 @@ jobs:
           tags: |
             jyothika2832/ai_security_v2-3-xensql:latest
             jyothika2832/ai_security_v2-3-xensql:${{ github.run_number }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       # ── Build & Push QueryVault ──
       - name: Build and Push QueryVault
@@ -48,9 +46,6 @@ jobs:
           tags: |
             jyothika2832/ai_security_v2-3-queryvault:latest
             jyothika2832/ai_security_v2-3-queryvault:${{ github.run_number }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
 
       # ── Build & Push Dashboard ──
       - name: Build and Push Dashboard
@@ -62,8 +57,6 @@ jobs:
           tags: |
             jyothika2832/ai_security_v2-3-dashboard:latest
             jyothika2832/ai_security_v2-3-dashboard:${{ github.run_number }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
   deploy-to-azure:
     name: Deploy to Azure VM
