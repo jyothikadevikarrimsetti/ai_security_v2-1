@@ -28,7 +28,7 @@ jobs:
           context: ./xensql
           file: ./xensql/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/ai_security_v2-3-xensql:latest
+          tags: jyothika2832/ai_security_v2-3-xensql:latest
 
       # ── Build & Push QueryVault ──
       - name: Build and Push QueryVault
@@ -37,7 +37,7 @@ jobs:
           context: ./queryvault
           file: ./queryvault/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/ai_security_v2-3-queryvault:latest
+          tags: jyothika2832/ai_security_v2-3-queryvault:latest
 
       # ── Build & Push Dashboard ──
       - name: Build and Push Dashboard
@@ -46,7 +46,7 @@ jobs:
           context: ./dashboard
           file: ./dashboard/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/ai_security_v2-3-dashboard:latest
+          tags: jyothika2832/ai_security_v2-3-dashboard:latest
 
   deploy-to-azure:
     name: Deploy to Azure VM
