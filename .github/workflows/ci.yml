@@ -20,29 +20,35 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # ── XenSQL ──
+      # ── Build & Push XenSQL ──
       - name: Build & Push XenSQL
         uses: docker/build-push-action@v5
         with:
           context: ./xensql
           file: ./xensql/Dockerfile
           push: true
-          tags: jyothika2832/ai_security_v2-3-xensql:latest
+          tags: |
+            jyothika2832/ai_security_v2-3-xensql:latest
+            jyothika2832/ai_security_v2-3-xensql:${{ github.run_number }}
 
-      # ── QueryVault ──
+      # ── Build & Push QueryVault ──
       - name: Build & Push QueryVault
         uses: docker/build-push-action@v5
         with:
           context: ./queryvault
           file: ./queryvault/Dockerfile
           push: true
-          tags: jyothika2832/ai_security_v2-3-queryvault:latest
+          tags: |
+            jyothika2832/ai_security_v2-3-queryvault:latest
+            jyothika2832/ai_security_v2-3-queryvault:${{ github.run_number }}
 
-      # ── Dashboard ──
+      # ── Build & Push Dashboard ──
       - name: Build & Push Dashboard
         uses: docker/build-push-action@v5
         with:
           context: ./dashboard
           file: ./dashboard/Dockerfile
           push: true
-          tags: jyothika2832/ai_security_v2-3-dashboard:latest
+          tags: |
+            jyothika2832/ai_security_v2-3-dashboard:latest
+            jyothika2832/ai_security_v2-3-dashboard:${{ github.run_number }}
