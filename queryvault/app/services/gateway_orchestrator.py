@@ -855,7 +855,7 @@ class GatewayOrchestrator:
 
     def _detect_hallucination(self, sql: str, filtered_schema: dict) -> dict:
         """Detect if SQL references tables/columns not in the filtered schema."""
-        log.debug("hallucination_check_start",
+        logger.debug("hallucination_check_start",
                   sql_preview=sql[:100],
                   num_columns=len(filtered_schema.get("columns", {})),
                   num_tables=len(filtered_schema.get("tables", [])))
