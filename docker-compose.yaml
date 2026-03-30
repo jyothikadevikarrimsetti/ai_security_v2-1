@@ -11,7 +11,7 @@ services:
 
   # ── XenSQL (NL-to-SQL Engine) ──────────
   xensql:
-    image: jyothika2832/ai_security_v2-1-xensql:latest
+    image: jyothika2832/ai_security_v2-3-xensql:latest
     ports:
       - "8001:8900"
     environment:
@@ -32,7 +32,7 @@ services:
 
   # ── QueryVault (Security Layer) ─────────
   queryvault:
-    image: jyothika2832/ai_security_v2-1-queryvault:latest
+    image: jyothika2832/ai_security_v2-3-queryvault:latest
     ports:
       - "8002:8950"
     environment:
@@ -57,9 +57,9 @@ services:
 
   # ── Dashboard (Frontend - React) ────────
   dashboard:
-    image: jyothika2832/ai_security_v2-1-dashboard:latest
+    image: jyothika2832/ai_security_v2-3-dashboard:latest
     ports:
-      - "3001:3001"   # 🔥 IMPORTANT FIX
+      - "3001:3001"
     depends_on:
       - xensql
       - queryvault
