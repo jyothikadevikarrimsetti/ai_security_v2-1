@@ -33,8 +33,8 @@ jobs:
           file: ./xensql/Dockerfile
           push: true
           tags: |
-            jyothika2832/ai_security_v2-3-xensql:latest
-            jyothika2832/ai_security_v2-3-xensql:${{ github.run_number }}
+            jyothika2832/ai_security_v2-1-xensql:latest
+            jyothika2832/ai_security_v2-1-xensql:${{ github.run_number }}
 
       # ── Build & Push QueryVault ──
       - name: Build and Push QueryVault
@@ -44,8 +44,8 @@ jobs:
           file: ./queryvault/Dockerfile
           push: true
           tags: |
-            jyothika2832/ai_security_v2-3-queryvault:latest
-            jyothika2832/ai_security_v2-3-queryvault:${{ github.run_number }}
+            jyothika2832/ai_security_v2-1-queryvault:latest
+            jyothika2832/ai_security_v2-1-queryvault:${{ github.run_number }}
 
       # ── Build & Push Dashboard ──
       - name: Build and Push Dashboard
@@ -55,8 +55,8 @@ jobs:
           file: ./dashboard/Dockerfile
           push: true
           tags: |
-            jyothika2832/ai_security_v2-3-dashboard:latest
-            jyothika2832/ai_security_v2-3-dashboard:${{ github.run_number }}
+            jyothika2832/ai_security_v2-1-dashboard:latest
+            jyothika2832/ai_security_v2-1-dashboard:${{ github.run_number }}
 
   deploy-to-azure:
     name: Deploy to Azure VM
